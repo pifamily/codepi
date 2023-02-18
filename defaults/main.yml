@@ -1,0 +1,18 @@
+---
+# defaults file for codepi
+manifest_folder: '/home/{{ ansible_user }}/manifests'
+codepi_namespace: default
+
+manifests : [{
+  src: codepi_deployment.j2.yaml,
+  dest: codepi_deployment.yaml
+},{
+  src: codepi_service.j2.yaml,
+  dest: codepi_service.yaml
+},{
+  src: codepi_ingress.j2.yaml,
+  dest: codepi_ingress.yaml
+},{
+  src: codepi_pvc.j2.yaml,
+  dest: codepi_pvc.yaml
+}]
