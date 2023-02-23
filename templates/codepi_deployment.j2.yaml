@@ -32,10 +32,12 @@ spec:
         - name: DEFAULT_WORKSPACE
           value: '/code'
         ports:
-        - containerPort: 8443
+        - containerPort: 8080
         volumeMounts:
         - name: codepi-claim
           mountPath: /code
+      securityContext:
+        fsGroup: 1000
       volumes:
       - name: codepi-claim
         persistentVolumeClaim:
