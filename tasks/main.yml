@@ -1,5 +1,24 @@
 ---
 # tasks file for codepi
+# Move to common
+#- name: Install podman
+# Create image
+- name: Make sure image dir exits
+  file:
+    path: '{{ docker_dir }}/codepi'
+    state: directory
+- name: Render Dockerfile
+  template:
+    src: Dockerfile.j2
+    dest: '{{ docker_dir }}/codepi/Dockerfile'
+- name: Build image
+  shell:
+    cmd: 'podman build . -t {{ registry_url }}/{{ codepi_image }}:{{ codepi_tag }}'
+    chdir: '{{ docker_dir }}/codepi'
+- name: Push to registry
+  shell:
+    cmd: 'podman push {{ registry_url }}/{{ codepi_image }}:{{ codepi_tag }} --tls-verify=False'
+# K8S Deployment
 - name: Create namespace
   shell:
     cmd: 'kubectl create namespace {{ codepi_namespace }}'

@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
       - name: codepi
-        image: linuxserver/code-server:latest
+        #image: linuxserver/code-server:latest
+        image: '{{ registry_url }}/{{ codepi_image }}:{{ codepi_tag }}' 
         env:
         - name: PUID
           value: '1000'
@@ -32,14 +33,21 @@ spec:
         - name: DEFAULT_WORKSPACE
           value: '/code'
         ports:
-        - containerPort: 8080
+        - containerPort: 8443
         volumeMounts:
         - name: codepi-claim
           mountPath: /code
+        - mountPath: /root/.config/code-server/config.yaml
+          name: code-config
+          subPath: config.yaml
+          readOnly: true
       securityContext:
         fsGroup: 1000
       volumes:
       - name: codepi-claim
         persistentVolumeClaim:
           claimName: codepi-claim
+      - name: code-config
+        configMap:
+          name: code-config
  

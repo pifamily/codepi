@@ -15,4 +15,11 @@ manifests : [{
 },{
   src: codepi_pvc.j2.yaml,
   dest: codepi_pvc.yaml
+},{
+  src: codepi_cm.j2.yaml,
+  dest: codepi_cm.yaml
 }]
+
+codepi_image: codepi
+codepi_tag: 230301-012
+codepi_host: codepi

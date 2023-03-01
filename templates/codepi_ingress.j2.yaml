@@ -5,7 +5,7 @@ metadata:
   namespace: {{ codepi_namespace }}
 spec:
   rules:
-    - host: codepi
+    - host: {{ codepi_host }}
       http:
         paths:
           - path: /
